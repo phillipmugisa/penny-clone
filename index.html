@@ -102,11 +102,11 @@
             <p class="font-normal text-lg">Your pension is a very large investment portfolio and the amount below shows how much it will be worth towards retirement age given that your income will not change and there will be no withdrawals from the pension. On the next screen we will check how you can increase your pension.</p>
             <div class="grid gap-2 p-2">
                 <p class="font-normal text-lg">The expected accumulation amount at retirement age in the current plan </p>
-                <span class="text-3xl font-medium">NIS <span id="expected_total_accumulation">0</span></span>
+                <span class="text-3xl font-medium">NIS <span class="expected_total_accumulation">0</span></span>
             </div>
             <div class="grid gap-2 p-2 border-solid border-slate-300 border-t">
                 <p class="font-normal text-lg">The amount of the expected monthly allowance in the current plan</p>
-                <span class="text-3xl font-medium">NIS <span id="expected_monthly_allowance">0</span></span>
+                <span class="text-3xl font-medium">NIS <span class="expected_monthly_allowance">0</span></span>
             </div>
         </div>
         <div class="grid gap-4">
@@ -135,13 +135,32 @@
             <h1 class="font-bold text-3xl capitalize">4. Improved pension product</h1>
             <p class="font-normal text-lg">Now we would like to check which pension product is the most profitable for you, and compare it to the pension you have today.</p>
             <p class="font-normal text-lg">You can choose one of the selected funds that won a state tender and undertake to give low management fees for the next 10 years: 1% of the deposit and 0.22% of the savings.</p>
-            <div class="grid gap-2 p-2">
-                <p class="font-normal text-lg">An improved pension product</p>
-                <span class="text-3xl font-medium">NIS <span id="expected_imroved_total_accumulation">0</span></span>
+            
+            <div class="grid gap-4">
+                <p class="font-medium border-solid border-slate-300 border-b">The expected accumulation amount at retirement age</p>
+                <div class="flex gap-4">
+                    <div class="grid gap-4 p-2">
+                        <p class="font-normal text-lg text-green-500">An improved pension product</p>
+                        <span class="text-3xl font-medium text-green-500">NIS <span id="expected_imroved_total_accumulation">0</span></span>
+                    </div>
+                    <div class="grid gap-4 p-2">
+                        <p class="font-normal text-lg">Current pension product</p>
+                        <span class="text-3xl font-medium">NIS <span class="expected_total_accumulation">0</span></span>
+                    </div>
+                </div>
             </div>
-            <div class="grid gap-2 p-2 border-solid border-slate-300 border-t">
-                <p class="font-normal text-lg">Improved monthly allowance</p>
-                <span class="text-3xl font-medium">NIS <span id="expected_imroved_monthly_allowance">0</span></span>
+            <div class="grid gap-4">
+                <p class="font-medium border-solid border-slate-300 border-b">The amount of the expected monthly allowance</p>
+                <div class="flex gap-4">
+                    <div class="grid gap-4 p-2">
+                        <p class="font-normal text-lg text-green-500">An improved pension product</p>
+                        <span class="text-3xl font-medium text-green-500">NIS <span id="expected_imroved_monthly_allowance">0</span></span>
+                    </div>
+                    <div class="grid gap-4 p-2">
+                        <p class="font-normal text-lg">Current pension product</p>
+                        <span class="text-3xl font-medium">NIS <span class="expected_monthly_allowance">0</span></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="grid gap-4">

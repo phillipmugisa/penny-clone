@@ -49,14 +49,19 @@ document.addEventListener("DOMContentLoaded", () => {
         let monthlyPensionDeposit = calculateMonthlyPensionDeposit()
         document.querySelector("#monthly_pension_deposit").textContent = Math.ceil(monthlyPensionDeposit)
 
-        let currentPension = calculateCurrentPension(monthlyPensionDeposit)
-        document.querySelector("#expected_total_accumulation").textContent = Math.ceil(currentPension[0])
-        document.querySelector("#expected_monthly_allowance").textContent = Math.ceil(currentPension[1])
+        let currentPension = calculateCurrentPension(Math.round(monthlyPensionDeposit))
+        console.log(currentPension)
+        document.querySelectorAll(".expected_total_accumulation").forEach(elem => {
+            elem.textContent = Math.round(currentPension[0])
+        })
+        document.querySelectorAll(".expected_monthly_allowance").forEach(elem => {
+            elem.textContent = Math.round(currentPension[1])
+        })
 
         
         let improvedPension = calculateImprovedPension(monthlyPensionDeposit)
-        document.querySelector("#expected_imroved_total_accumulation").textContent = Math.ceil(improvedPension[0])
-        document.querySelector("#expected_imroved_monthly_allowance").textContent = Math.ceil(improvedPension[1])
+        document.querySelector("#expected_imroved_total_accumulation").textContent = Math.round(improvedPension[0])
+        document.querySelector("#expected_imroved_monthly_allowance").textContent = Math.round(improvedPension[1])
     }
 
     const calculateMonthlyPensionDeposit = () => {
@@ -93,23 +98,33 @@ document.addEventListener("DOMContentLoaded", () => {
         let saving = parseFloat(employee_saving)
         let total_deposit = 0
         for (let i = 0; i < getYearsOfService(); i++) {
-            saving = saving - ( saving_management_percentage/100 * saving )
-            saving = saving + (expected_annual_return_percentage/100 * saving)
+            saving = ((100 - saving_management_percentage)/100 * saving )
+            saving = Math.round((100 + expected_annual_return_percentage)/100 * saving)
         
             total_deposit = total_deposit + ( monthlyPensionDeposit * 12 ) 
-            total_deposit = total_deposit - (saving_management_percentage/100 * total_deposit)
-            total_deposit = total_deposit + (expected_annual_return_percentage/100 * total_deposit)
+            total_deposit = ((100 - saving_management_percentage)/100 * total_deposit)
+            total_deposit = Math.round((100 + expected_annual_return_percentage)/100 * total_deposit)
+
+            // t = ((100 - deposit_management_percentage)/100 * total_deposit ) + saving
+            // m = Math.round(t / allowance_coefficient)
+            // console.log(t, m)
         }
+        // 186,801 849  66
+        // 225,250 1,024
+        // 265,421 1,206
+        // 307,390 1,397
+
+        // 444,913 2,022
+        // 3,135,506 14245
 
         total_pension = (total_deposit - ( deposit_management_percentage/100 * total_deposit )) + saving
         monthly_allowance = total_pension / allowance_coefficient
-
-        return [total_pension, monthly_allowance]
+        return [Math.round(total_pension), Math.round(monthly_allowance)]
     }
 
     const getYearsOfService = () => {
         let age_of_retirement = 70
-        employee_age= document.querySelector("#employee_age").value || 35
+        employee_age= isNaN(parseFloat(document.querySelector("form.grid #employee_age").value)) ? 35 : parseInt(document.querySelector("form.grid #employee_age").value)
 
         if (parseInt(employee_age) >= 50) {
             age_of_retirement = 67
@@ -144,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
         total_pension = (total_deposit - ( improve_deposit_management_percentage/100 * total_deposit )) + saving
         monthly_allowance = total_pension / allowance_coefficient
 
-        console.log([total_pension, monthly_allowance])
         return [total_pension, monthly_allowance]
     }
 
