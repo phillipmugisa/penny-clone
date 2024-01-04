@@ -17,7 +17,7 @@
             <p class="font-light text-lg">The calculator we built will compare the amount of pension savings you are expected to have at retirement age compared to the improved (and significantly larger) amount that we will take care of for you in a penny.</p>
         </div>
     </section>
-    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 h-screen content-center justify-start text-white grid-cols-2">
+    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 lg:h-screen content-center justify-start text-white grid-cols-1 lg:grid-cols-2">
         <div class="grid gap-4 pr-10 content-start">
             <h1 class="font-bold text-3xl capitalize">my salary</h1>
             <p class="font-normal text-lg">Let's start with some basic data so we can calculate your future pension. In each field we put a default, but it is advisable to change the data according to your situation so that the simulation is as accurate as possible.</p>
@@ -65,7 +65,7 @@
             </form>
         </div>
     </section>
-    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 h-screen content-center justify-start text-white grid-cols-2">
+    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 lg:h-screen content-center justify-start text-white grid-cols-1 lg:grid-cols-2">
         <div class="grid gap-4 pr-10 content-start">
             <h1 class="font-bold text-3xl capitalize">2. Deposit percentages</h1>
             <p class="font-normal text-lg">You can check the percentages of the provision with the employer or in the employment contract. Self-employed people can check with an accountant.</p>
@@ -96,15 +96,15 @@
             </form>
         </div>
     </section>
-    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 h-screen content-center justify-start text-white grid-cols-2">
+    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 lg:h-screen content-center justify-start text-white grid-cols-1 lg:grid-cols-2">
         <div class="grid gap-4 pr-10 content-start">
             <h1 class="font-bold text-3xl capitalize">3. My current pension product</h1>
             <p class="font-normal text-lg">Your pension is a very large investment portfolio and the amount below shows how much it will be worth towards retirement age given that your income will not change and there will be no withdrawals from the pension. On the next screen we will check how you can increase your pension.</p>
-            <div class="grid gap-2 p-2">
+            <div class="grid gap-2">
                 <p class="font-normal text-lg">The expected accumulation amount at retirement age in the current plan </p>
                 <span class="text-3xl font-medium">NIS <span class="expected_total_accumulation">0</span></span>
             </div>
-            <div class="grid gap-2 p-2 border-solid border-slate-300 border-t">
+            <div class="grid gap-2 border-solid border-slate-300 border-t">
                 <p class="font-normal text-lg">The amount of the expected monthly allowance in the current plan</p>
                 <span class="text-3xl font-medium">NIS <span class="expected_monthly_allowance">0</span></span>
             </div>
@@ -130,7 +130,7 @@
             </form>
         </div>
     </section>
-    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 h-screen content-center justify-start text-white grid-cols-2">
+    <section class="w-11/12 mx-auto grid gap-6 px-4 py-6 lg:h-screen content-center justify-start text-white grid-cols-1 lg:grid-cols-2">
         <div class="grid gap-4 pr-10 content-start">
             <h1 class="font-bold text-3xl capitalize">4. Improved pension product</h1>
             <p class="font-normal text-lg">Now we would like to check which pension product is the most profitable for you, and compare it to the pension you have today.</p>
@@ -138,12 +138,12 @@
             
             <div class="grid gap-4">
                 <p class="font-medium border-solid border-slate-300 border-b">The expected accumulation amount at retirement age</p>
-                <div class="flex gap-4">
-                    <div class="grid gap-4 p-2">
+                <div class="grid lg:flex gap-4">
+                    <div class="grid gap-4">
                         <p class="font-normal text-lg text-green-500">An improved pension product</p>
                         <span class="text-3xl font-medium text-green-500">NIS <span id="expected_imroved_total_accumulation">0</span></span>
                     </div>
-                    <div class="grid gap-4 p-2">
+                    <div class="grid gap-4">
                         <p class="font-normal text-lg">Current pension product</p>
                         <span class="text-3xl font-medium">NIS <span class="expected_total_accumulation">0</span></span>
                     </div>
@@ -151,12 +151,12 @@
             </div>
             <div class="grid gap-4">
                 <p class="font-medium border-solid border-slate-300 border-b">The amount of the expected monthly allowance</p>
-                <div class="flex gap-4">
-                    <div class="grid gap-4 p-2">
+                <div class="grid lg:flex gap-4">
+                    <div class="grid gap-4">
                         <p class="font-normal text-lg text-green-500">An improved pension product</p>
                         <span class="text-3xl font-medium text-green-500">NIS <span id="expected_imroved_monthly_allowance">0</span></span>
                     </div>
-                    <div class="grid gap-4 p-2">
+                    <div class="grid gap-4">
                         <p class="font-normal text-lg">Current pension product</p>
                         <span class="text-3xl font-medium">NIS <span class="expected_monthly_allowance">0</span></span>
                     </div>

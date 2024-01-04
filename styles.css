@@ -100,13 +100,8 @@ section {
 body {
   background-color: #11104B;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
   margin: 0;
 }
-section {
-  scroll-snap-align: start;
-}
-
 form {
   display: grid;
   align-items: flex-start;

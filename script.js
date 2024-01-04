@@ -47,21 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const makeCalculation = () => {
         // calculate monthly pension deposit
         let monthlyPensionDeposit = calculateMonthlyPensionDeposit()
-        document.querySelector("#monthly_pension_deposit").textContent = Math.ceil(monthlyPensionDeposit)
+        document.querySelector("#monthly_pension_deposit").textContent = monthlyPensionDeposit.toFixed()
 
-        let currentPension = calculateCurrentPension(Math.round(monthlyPensionDeposit))
-        console.log(currentPension)
+        let currentPension = calculateCurrentPension((monthlyPensionDeposit))
         document.querySelectorAll(".expected_total_accumulation").forEach(elem => {
-            elem.textContent = Math.round(currentPension[0])
+            elem.textContent = (currentPension[0])
         })
         document.querySelectorAll(".expected_monthly_allowance").forEach(elem => {
-            elem.textContent = Math.round(currentPension[1])
+            elem.textContent = (currentPension[1])
         })
 
         
         let improvedPension = calculateImprovedPension(monthlyPensionDeposit)
-        document.querySelector("#expected_imroved_total_accumulation").textContent = Math.round(improvedPension[0])
-        document.querySelector("#expected_imroved_monthly_allowance").textContent = Math.round(improvedPension[1])
+        document.querySelector("#expected_imroved_total_accumulation").textContent = (improvedPension[0]).toFixed()
+        document.querySelector("#expected_imroved_monthly_allowance").textContent = (improvedPension[1]).toFixed()
     }
 
     const calculateMonthlyPensionDeposit = () => {
@@ -86,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    const toPercentage = value => value / 100
+
     const calculateCurrentPension = (monthlyPensionDeposit) => {
         // 1
         employee_saving= isNaN(parseFloat(document.querySelector("#employee_saving").value)) ? 150000 :parseFloat(document.querySelector("#employee_saving").value)
@@ -95,31 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
         expected_annual_return_percentage= isNaN(parseFloat(document.querySelector("form.grid #expected_annual_return_percentage").value)) ? 5.0 :parseFloat(document.querySelector("form.grid #expected_annual_return_percentage").value)
         allowance_coefficient= isNaN(parseFloat(document.querySelector("form.grid #allowance_coefficient").value)) ? 220 :parseFloat(document.querySelector("form.grid #allowance_coefficient").value)
 
-        let saving = parseFloat(employee_saving)
-        let total_deposit = 0
-        for (let i = 0; i < getYearsOfService(); i++) {
-            saving = ((100 - saving_management_percentage)/100 * saving )
-            saving = Math.round((100 + expected_annual_return_percentage)/100 * saving)
+        let total_pension = parseFloat(employee_saving)
+        let reduced_deposit = monthlyPensionDeposit * (1 - toPercentage(deposit_management_percentage))
         
-            total_deposit = total_deposit + ( monthlyPensionDeposit * 12 ) 
-            total_deposit = ((100 - saving_management_percentage)/100 * total_deposit)
-            total_deposit = Math.round((100 + expected_annual_return_percentage)/100 * total_deposit)
-
-            // t = ((100 - deposit_management_percentage)/100 * total_deposit ) + saving
-            // m = Math.round(t / allowance_coefficient)
-            // console.log(t, m)
+        for (let i = 0; i < getYearsOfService(); i++) {
+            total_pension = total_pension + (reduced_deposit * 12)
+            total_pension = total_pension * (1 + toPercentage(expected_annual_return_percentage))
+            // console.log(total_pension)
         }
-        // 186,801 849  66
-        // 225,250 1,024
-        // 265,421 1,206
-        // 307,390 1,397
+        // total_pension = total_pension * (1 - toPercentage(saving_management_percentage))
 
-        // 444,913 2,022
-        // 3,135,506 14245
 
-        total_pension = (total_deposit - ( deposit_management_percentage/100 * total_deposit )) + saving
+
+
+        // 422745
+
+        // 3,135,506 14,252
+
         monthly_allowance = total_pension / allowance_coefficient
-        return [Math.round(total_pension), Math.round(monthly_allowance)]
+        return [total_pension.toFixed(2), monthly_allowance.toFixed(2)]
     }
 
     const getYearsOfService = () => {
@@ -145,21 +140,32 @@ document.addEventListener("DOMContentLoaded", () => {
         improve_expected_annual_return_percentage= isNaN(parseFloat(document.querySelector("form.grid #improve_expected_annual_return_percentage").value)) ? 6.0 :parseFloat(document.querySelector("form.grid #improve_expected_annual_return_percentage").value)
         improve_allowance_coefficient= isNaN(parseFloat(document.querySelector("form.grid #improve_allowance_coefficient").value)) ? 220 :parseFloat(document.querySelector("form.grid #improve_allowance_coefficient").value)
 
-        let saving = parseFloat(employee_saving)
-        let total_deposit = 0
-        for (let i = 0; i < getYearsOfService(); i++) {
-            saving = saving - ( improve_saving_management_percentage/100 * saving )
-            saving = saving + (improve_expected_annual_return_percentage/100 * saving)
+        // let saving = parseFloat(employee_saving)
+        // let total_deposit = 0
+        // for (let i = 0; i < getYearsOfService(); i++) {
+        //     saving = saving - ( improve_saving_management_percentage/100 * saving )
+        //     saving = saving + (improve_expected_annual_return_percentage/100 * saving)
         
-            total_deposit = total_deposit + ( monthlyPensionDeposit * 12 ) 
-            total_deposit = total_deposit - (improve_saving_management_percentage/100 * total_deposit)
-            total_deposit = total_deposit + (improve_expected_annual_return_percentage/100 * total_deposit)
+        //     total_deposit = total_deposit + ( monthlyPensionDeposit * 12 ) 
+        //     total_deposit = total_deposit - (improve_saving_management_percentage/100 * total_deposit)
+        //     total_deposit = total_deposit + (improve_expected_annual_return_percentage/100 * total_deposit)
+        // }
+
+        // total_pension = (total_deposit - ( improve_deposit_management_percentage/100 * total_deposit )) + saving
+        // monthly_allowance = total_pension / allowance_coefficient
+
+        // return [total_pension, monthly_allowance]
+
+        let total_pension = parseFloat(employee_saving)
+        let reduced_deposit = ((100 - improve_deposit_management_percentage)/ 100 * monthlyPensionDeposit )
+        for (let i = 0; i < getYearsOfService(); i++) {            
+            total_pension = (total_pension + (reduced_deposit * 12))
+            total_pension = ((100 + (improve_expected_annual_return_percentage)) / 100 * total_pension)
+            total_pension = ((100 - improve_saving_management_percentage) / 100 * total_pension) + 18
         }
-
-        total_pension = (total_deposit - ( improve_deposit_management_percentage/100 * total_deposit )) + saving
-        monthly_allowance = total_pension / allowance_coefficient
-
-        return [total_pension, monthly_allowance]
+        
+        monthly_allowance = total_pension / improve_allowance_coefficient
+        return [(total_pension), Math.ceil(monthly_allowance)]
     }
 
     makeCalculation()
