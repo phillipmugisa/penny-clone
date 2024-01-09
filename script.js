@@ -68,8 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#new_monthly_allowance span").textContent = (improvedPension[1]).toFixed()
         document.querySelector("#new_accumulation_allowance span").textContent = (improvedPension[0]).toFixed()
 
-        document.querySelector("#monthly_allowance_gap span").textContent = parseFloat((improvedPension[0]).toFixed()) - parseFloat((currentPension[0]))
-        document.querySelector("#accumulation_allowance_gap span").textContent = parseFloat((improvedPension[1]).toFixed()) - parseFloat((currentPension[1]))
+        document.querySelector("#accumulation_allowance_gap span").textContent = parseFloat((improvedPension[0]).toFixed()) - parseFloat((currentPension[0]))
+        document.querySelector("#monthly_allowance_gap span").textContent = parseFloat((improvedPension[1]).toFixed()) - parseFloat((currentPension[1]))
     }
 
     const calculateMonthlyPensionDeposit = () => {
