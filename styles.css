@@ -230,4 +230,9 @@ form {
   .with-anim .anim {
     display: none;
   }
+  #page-starter {
+    padding-inline: 1rem;
+    margin-inline: auto;
+  }
+  
 }
