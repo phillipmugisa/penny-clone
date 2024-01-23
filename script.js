@@ -42,34 +42,42 @@ document.addEventListener("DOMContentLoaded", () => {
             form.classList.add("hidden")
             form.classList.remove("grid")
         })
+
+        if (document.querySelector("input[type='radio']#employee").checked) {
+            document.querySelector("#employer_deposit_report").style.display = "grid"
+            document.querySelector("#compensation_reposit").style.display = "grid"
+        } else {
+            document.querySelector("#employer_deposit_report").style.display = "none"
+            document.querySelector("#compensation_reposit").style.display = "none"
+        }
     }
 
     const makeCalculation = () => {
         // calculate monthly pension deposit
         let monthlyPensionDeposit = calculateMonthlyPensionDeposit()
-        document.querySelector("#monthly_pension_deposit").textContent = monthlyPensionDeposit.toFixed()
+        document.querySelector("#monthly_pension_deposit").textContent = numberWithCommas(monthlyPensionDeposit.toFixed())
 
         let currentPension = calculateCurrentPension((monthlyPensionDeposit))
         document.querySelectorAll(".expected_total_accumulation").forEach(elem => {
-            elem.textContent = (currentPension[0])
+            elem.textContent = numberWithCommas((currentPension[0]))
         })
         document.querySelectorAll(".expected_monthly_allowance").forEach(elem => {
-            elem.textContent = (currentPension[1])
+            elem.textContent = numberWithCommas((currentPension[1]))
         })
 
-        document.querySelector("#old_monthly_allowance span").textContent = (currentPension[1])
-        document.querySelector("#old_accumulation_allowance span").textContent = (currentPension[0])
+        document.querySelector("#old_monthly_allowance span").textContent = numberWithCommas((currentPension[1]))
+        document.querySelector("#old_accumulation_allowance span").textContent = numberWithCommas((currentPension[0]))
         
         
         let improvedPension = calculateImprovedPension(monthlyPensionDeposit)
-        document.querySelector("#expected_imroved_total_accumulation").textContent = (improvedPension[0]).toFixed()
-        document.querySelector("#expected_imroved_monthly_allowance").textContent = (improvedPension[1]).toFixed()
+        document.querySelector("#expected_imroved_total_accumulation").textContent = numberWithCommas((improvedPension[0]).toFixed())
+        document.querySelector("#expected_imroved_monthly_allowance").textContent = numberWithCommas((improvedPension[1]).toFixed())
 
-        document.querySelector("#new_monthly_allowance span").textContent = (improvedPension[1]).toFixed()
-        document.querySelector("#new_accumulation_allowance span").textContent = (improvedPension[0]).toFixed()
+        document.querySelector("#new_monthly_allowance span").textContent = numberWithCommas((improvedPension[1]).toFixed())
+        document.querySelector("#new_accumulation_allowance span").textContent = numberWithCommas((improvedPension[0]).toFixed())
 
-        document.querySelector("#accumulation_allowance_gap span").textContent = parseFloat((improvedPension[0]).toFixed()) - parseFloat((currentPension[0]))
-        document.querySelector("#monthly_allowance_gap span").textContent = parseFloat((improvedPension[1]).toFixed()) - parseFloat((currentPension[1]))
+        document.querySelector("#accumulation_allowance_gap span").textContent = numberWithCommas(parseFloat((improvedPension[0]).toFixed()) - parseFloat((currentPension[0])))
+        document.querySelector("#monthly_allowance_gap span").textContent = numberWithCommas(parseFloat((improvedPension[1]).toFixed()) - parseFloat((currentPension[1])))
     }
 
     const calculateMonthlyPensionDeposit = () => {
@@ -79,9 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         employee_deposit_percentage= isNaN(parseFloat(document.querySelector("form.grid #employee_deposit_percentage").value)) ? 6.0 : parseFloat(document.querySelector("form.grid #employee_deposit_percentage").value)
 
-        document.querySelector("#salary_report span").textContent = employee_gross_salary
-        document.querySelector("#employee_deposit_report span").textContent = employee_deposit_percentage
-        // document.querySelector("#accumulation_report span").textContent
+        document.querySelector("#salary_report span").textContent = numberWithCommas(employee_gross_salary)
+        document.querySelector("#employee_deposit_report span").textContent = numberWithCommas(employee_deposit_percentage)
+        document.querySelector("#accumulation_report span").textContent = numberWithCommas(isNaN(parseFloat(document.querySelector("#employee_saving").value)) ? 150000 :parseFloat(document.querySelector("#employee_saving").value))
 
 
         // 2
@@ -185,6 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return [total_pension, monthly_allowance]
     }
 
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     // 4400172 20001
     makeCalculation()
+
+
 })

@@ -121,6 +121,32 @@ form {
   background-color: transparent;
   color: #FF4F4F;
 }
+.start_section_act {
+  color: #FF4F4F;
+  padding: 0;
+  background-color: transparent;
+  margin: 1rem 0;
+  transition: 0.3s ease-in-out;
+  display: grid;
+  justify-self: flex-start;
+  align-self: flex-start;
+  align-content: flex-start;
+  gap: .5rem;
+  font-weight:  bold;
+  font-size: 1.5rem;
+  block-size: 90px;
+
+}
+.start_section_act span {
+  padding: 0;
+  margin: 0;
+}
+.start_section_act svg {
+  inline-size: 20px;
+  block-size: 20px;
+  fill: #FF4F4F;
+  stroke: transparent
+}
 
 .btn-outlined {
   color: #FF4F4F;
@@ -129,6 +155,8 @@ form {
   background-color: transparent;
   margin: 1rem 0;
   transition: 0.3s ease-in-out;
+  display: grid;
+  place-items: center;
 }
 .btn-outlined:hover {
   background-color: #FF4F4F;
@@ -138,16 +166,68 @@ form {
 .bottom-section {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  width: 100vw;
+  /* width: 100vw; */
+  overflow: hidden;
+  background-color: #F7F7F7;
 }
 .bottom-section > *{
   padding: 2rem;
 }
 
+.bottom-section-part {
+  display: grid;
+  grid-template-columns: 1fr 1fr .5fr;
+}
+
+.with-anim {
+  display: grid;
+  grid-template-columns: 0.05fr 0.8fr;
+  padding-inline: 2rem;
+  position: relative;
+}
+.with-anim .anim {
+  position: relative;
+}
+.anim .track {
+  position: absolute;
+  top: 0;
+  left: 25%;
+  transform: translateX(-25%);
+  display: grid;
+  place-items: center;
+  block-size: 100%;
+  width: 2px;
+  border-inline-end: 2px solid #fff;
+}
+.anim .ball {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10%;
+  display: grid;
+  inline-size: 35px;
+  aspect-ratio: 1;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: #FF4F4F;
+  z-index: 1;
+}
+
+#page-starter {
+  padding-inline: 2rem;
+  margin-inline: auto;
+}
 
 @media (max-width: 700px) {
   .bottom-section {
     display: grid;
     grid-template-columns: 1fr;
+  }
+  .with-anim {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-inline: 1rem;
+  }
+  .with-anim .anim {
+    display: none;
   }
 }
